@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memorize.Core", "Memorize.Core\Memorize.Core.csproj", "{70E7C3A0-1F50-4774-9408-3F59B9C92DBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memorize.WPF", "Memorize.WPF\Memorize.WPF.csproj", "{21E4EA92-4B1C-4239-A169-F932C46692E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memorize.Droid", "Memorize.Droid\Memorize.Droid.csproj", "{FF89E097-44FA-4A6D-AAC9-BA7A9E9A1485}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,16 @@ Global
 		{70E7C3A0-1F50-4774-9408-3F59B9C92DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70E7C3A0-1F50-4774-9408-3F59B9C92DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70E7C3A0-1F50-4774-9408-3F59B9C92DBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21E4EA92-4B1C-4239-A169-F932C46692E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21E4EA92-4B1C-4239-A169-F932C46692E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21E4EA92-4B1C-4239-A169-F932C46692E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21E4EA92-4B1C-4239-A169-F932C46692E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF89E097-44FA-4A6D-AAC9-BA7A9E9A1485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF89E097-44FA-4A6D-AAC9-BA7A9E9A1485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF89E097-44FA-4A6D-AAC9-BA7A9E9A1485}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FF89E097-44FA-4A6D-AAC9-BA7A9E9A1485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF89E097-44FA-4A6D-AAC9-BA7A9E9A1485}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF89E097-44FA-4A6D-AAC9-BA7A9E9A1485}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
