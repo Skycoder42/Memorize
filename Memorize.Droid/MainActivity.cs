@@ -8,7 +8,9 @@ using Android.OS;
 
 namespace Memorize.Droid
 {
-    [Activity(Label = "Memorize.Droid", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Memorize.Droid", 
+        MainLauncher = true,
+        Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         int count = 1;

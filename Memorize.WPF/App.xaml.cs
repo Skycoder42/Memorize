@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Memorize.Core;
 using System.Windows;
 
 namespace Memorize.WPF
 {
-    /// <summary>
-    /// Interaktionslogik für "App.xaml"
-    /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Setup.Initialize();
+            base.OnStartup(e);
+        }
     }
 }
