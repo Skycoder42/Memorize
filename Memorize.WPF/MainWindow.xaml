@@ -8,7 +8,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
 
-        <ListView x:Name="listView">
+        <ListView x:Name="ListView">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="Auto" DisplayMemberBinding="{Binding Id}"/>
