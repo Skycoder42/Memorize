@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
-using Memorize.Droid.Base;
 
 namespace Memorize.Droid
 {
@@ -16,7 +15,6 @@ namespace Memorize.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            this.ApplyStatusBarColor();
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);

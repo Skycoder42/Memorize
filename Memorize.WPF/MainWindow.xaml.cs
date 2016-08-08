@@ -9,7 +9,7 @@ namespace Memorize.WPF
         {
             InitializeComponent();
             this.Loaded += (o, e) => {
-                this.listView.ItemsSource = ReminderManagerService.Instance.Reminders;
+                this.ListView.ItemsSource = ReminderManagerService.Instance.Reminders;
             };
         }
     }
