@@ -1,29 +1,25 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
+using Memorize.Core;
 
 namespace Memorize.Droid
 {
-    [Activity(Label = "Memorize.Droid", 
+    [Activity(Label = "@string/ApplicationName", 
         MainLauncher = true,
         Theme = "@style/Memorize.Droid.Theme",
         Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        int count = 1;
-
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
+            Setup.Initialize();
 
-            // Set our view from the "main" layout resource
+            base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.MyButton);
-
-            button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+            var listView = this.FindViewById<ListView>(Resource.Id.reminderListView);
+            listView.Adapter = new ReminderArrayAdapter(this, ReminderManagerService.Instance.Reminders);
         }
     }
 }
