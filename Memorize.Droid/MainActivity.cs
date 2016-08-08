@@ -2,6 +2,7 @@
 using Android.Widget;
 using Android.OS;
 using Memorize.Core;
+using Memorize.Core.Services;
 
 namespace Memorize.Droid
 {
@@ -13,13 +14,13 @@ namespace Memorize.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
-            Setup.Initialize();
+            CoreApp.Initialize(() => { });
 
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
             var listView = this.FindViewById<ListView>(Resource.Id.reminderListView);
-            listView.Adapter = new ReminderArrayAdapter(this, ReminderManagerService.Instance.Reminders);
+            listView.Adapter = new ReminderArrayAdapter(this, CoreApp.Service<ReminderManagerService>().Reminders);
         }
     }
 }

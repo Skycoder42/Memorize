@@ -1,5 +1,7 @@
 ﻿using Memorize.Core;
 using System.Windows;
+using Memorize.Core.Services;
+using Memorize.WPF.Services;
 
 namespace Memorize.WPF
 {
@@ -7,8 +9,15 @@ namespace Memorize.WPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Setup.Initialize();
+            DoSetup();
             base.OnStartup(e);
+        }
+
+        public static void DoSetup()
+        {
+            CoreApp.Initialize(() => {
+                CoreApp.RegisterService<ISettingsService, WpfSettingsService>();
+            });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Memorize.Core;
 using System.Windows;
+using Memorize.Core.Services;
 
 namespace Memorize.WPF
 {
@@ -9,7 +10,7 @@ namespace Memorize.WPF
         {
             InitializeComponent();
             this.Loaded += (o, e) => {
-                this.ListView.ItemsSource = ReminderManagerService.Instance.Reminders;
+                this.ListView.ItemsSource = CoreApp.Service<ReminderManagerService>().Reminders;
             };
         }
     }

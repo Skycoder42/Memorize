@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Memorize.Core.Models;
 
-namespace Memorize.Core
+namespace Memorize.Core.Services
 {
     public class ReminderManagerService
     {
-        private static ReminderManagerService _instance;
-        public static ReminderManagerService Instance
-        {
-            get { return _instance ?? (_instance = new ReminderManagerService()); }
-        }
-
-        private ReminderManagerService() { }
+        public ReminderManagerService() { }
 
         public ObservableCollection<Reminder> Reminders { get; } = new ObservableCollection<Reminder>();
 

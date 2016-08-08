@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Memorize.Core
+namespace Memorize.Core.Models
 {
     public interface IAlarm
     {

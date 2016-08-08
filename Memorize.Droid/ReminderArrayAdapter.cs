@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Memorize.Core;
+using Memorize.Core.Models;
 
 namespace Memorize.Droid
 {
