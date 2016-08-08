@@ -9,4 +9,13 @@
 
         void Reset();
     }
+
+    public static class DefaultSettings
+    {
+        public static long ReminderId
+        {
+            get { return CoreApp.Service<ISettingsService>().Load(nameof(ReminderId), 0); }
+            set { CoreApp.Service<ISettingsService>().Save(nameof(ReminderId), value);}
+        }
+    }
 }

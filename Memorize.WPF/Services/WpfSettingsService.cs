@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using Memorize.Core.Services;
-using Memorize.WPF.Properties;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 
@@ -15,17 +9,22 @@ namespace Memorize.WPF.Services
     {
         private const string BasePath = @"SOFTWARE\Skycoder42\Memorize";
 
+        private RegistryKey _mainKey;
+
+        public WpfSettingsService()
+        {
+            this._mainKey = Registry.CurrentUser.CreateSubKey(BasePath);
+        }
+
         public void Save<TValue>(string key, TValue value)
         {
-            var entry = Registry.CurrentUser.CreateSubKey(BasePath);
-            entry?.SetValue(key, JsonConvert.SerializeObject(value));
+            this._mainKey?.SetValue(key, JsonConvert.SerializeObject(value));
         }
 
         public TValue Load<TValue>(string key, TValue defaultValue = default(TValue))
         {
             try {
-                var entry = Registry.CurrentUser.OpenSubKey(BasePath, false);
-                var value = entry?.GetValue(key, null) as string;
+                var value = this._mainKey?.GetValue(key, null) as string;
                 if (value != null)
                     return JsonConvert.DeserializeObject<TValue>(value);
             } catch { }
@@ -35,19 +34,19 @@ namespace Memorize.WPF.Services
 
         public bool Contains(string key)
         {
-            var entry = Registry.CurrentUser.OpenSubKey(BasePath, false);
-            return entry?.GetValueNames().Contains(key) ?? false;
+            return this._mainKey?.GetValueNames().Contains(key) ?? false;
         }
 
         public void Remove(string key)
         {
-            var entry = Registry.CurrentUser.CreateSubKey(BasePath);
-            entry?.DeleteValue(key);
+            this._mainKey?.DeleteValue(key);
         }
 
         public void Reset()
         {
+            this._mainKey = null;
             Registry.CurrentUser.DeleteSubKeyTree(BasePath);
+            this._mainKey = Registry.CurrentUser.CreateSubKey(BasePath);
         }
     }
 }

@@ -8,16 +8,19 @@ namespace Memorize.Core.Models
         {
             this.TimeSpan = timeSpan;
             this.Repeating = repeating;
-            this.IsValid = true;
         }
-
-        public bool IsValid { get; }
+        
         public bool Repeating { get; }
         public TimeSpan TimeSpan { get; }
 
         public DateTime CalcNextTrigger(DateTime currentTime)
         {
             return currentTime.Add(this.TimeSpan);
+        }
+
+        public override string ToString()
+        {
+            return this.TimeSpan.ToString();
         }
     }
 }

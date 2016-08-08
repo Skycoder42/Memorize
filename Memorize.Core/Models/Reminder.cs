@@ -4,7 +4,7 @@ namespace Memorize.Core.Models
 {
     public class Reminder
     {
-        public int Id { get; set; }
+        public long Id { get; set; } = -1;
         public string Title { get; set; }
         public string Description { get; set; }
 

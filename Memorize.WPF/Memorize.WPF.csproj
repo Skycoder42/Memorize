@@ -77,6 +77,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\AlarmConverter.cs" />
+    <Compile Include="Converters\BaseConverter.cs" />
+    <Compile Include="Converters\SnoozeConverter.cs" />
     <Compile Include="Services\WpfSettingsService.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
