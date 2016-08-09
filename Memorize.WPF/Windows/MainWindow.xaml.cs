@@ -23,7 +23,11 @@ namespace Memorize.WPF.Windows
         private void CreateNew_OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var res = EditReminderWindow.CreateReminder(this);
-            ;
+        }
+
+        private void IsItemSelected(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = this.ListView.SelectedIndex != -1;
         }
     }
 }
