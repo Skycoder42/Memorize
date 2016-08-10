@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memorize.Core.Helpers
 {
@@ -11,13 +7,13 @@ namespace Memorize.Core.Helpers
         public static string ToShortString(this TimeSpan span)
         {
             if (span.Days > 0)
-                return $"{span.TotalDays} Days";
+                return $"{span.TotalDays} Day(s)";
             else if (span.Hours > 0)
-                return $"{span.TotalHours} Hours";
+                return $"{span.TotalHours} Hour(s)";
             else if (span.Minutes > 0)
-                return $"{span.TotalMinutes} Minutes";
+                return $"{span.TotalMinutes} Minute(s)";
             else
-                return $"{span.TotalSeconds} Seconds";
+                return $"{span.TotalSeconds} Second(s)";
         }
     }
 }

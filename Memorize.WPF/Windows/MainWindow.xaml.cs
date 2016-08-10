@@ -5,7 +5,7 @@ using Memorize.Core.Services;
 
 namespace Memorize.WPF.Windows
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {

@@ -8,7 +8,7 @@ namespace Memorize.WPF.Converters
     {
         public override string Convert(TimeSpan value)
         {
-            return value.ToShortString();
+            return value == TimeSpan.MaxValue ? "<Custom>" : value.ToShortString();
         }
     }
 }

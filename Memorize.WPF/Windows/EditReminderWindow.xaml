@@ -5,16 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Memorize.WPF.Windows"
         xmlns:converters="clr-namespace:Memorize.WPF.Converters"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Width="300"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False" 
         ResizeMode="NoResize"
-        SizeToContent="Height">
+        SizeToContent="Height"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" >
+
+    <Window.Resources>
+        <converters:SnoozeConverter x:Key="Snooze" />
+    </Window.Resources>
 
     <StackPanel>
         <Grid Margin="6">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -25,34 +32,58 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0"
-               Grid.Column="0"
-               Content="_Title: "
-               VerticalAlignment="Center"
-               Target="{Binding ElementName=TitleBox}"/>
+                   Grid.Column="0"
+                   Content="_Title: "
+                   VerticalAlignment="Center"
+                   Target="{Binding ElementName=TitleBox}"/>
             <TextBox Name="TitleBox" 
-                 Grid.Row="0"
-                 Grid.Column="1" 
-                 VerticalAlignment="Center"/>
+                     Grid.Row="0"
+                     Grid.Column="1" 
+                     TextChanged="ValidateTextInput"
+                     VerticalAlignment="Center"/>
 
             <Label Grid.Row="1"
-               Grid.Column="0"
-               Content="_Description: "
-               VerticalAlignment="Center"
-               Target="{Binding ElementName=DescriptionBox}"/>
+                   Grid.Column="0"
+                   Content="_Description: "
+                   VerticalAlignment="Center"
+                   Target="{Binding ElementName=DescriptionBox}"/>
             <TextBox Name="DescriptionBox" 
-                 Grid.Row="1"
-                 Grid.Column="1"
-                 VerticalAlignment="Center"/>
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     VerticalAlignment="Center"/>
 
             <Label Grid.Row="2"
-               Grid.Column="0"
-               Content="_URI: "
-               VerticalAlignment="Center"
-               Target="{Binding ElementName=UriBox}"/>
+                   Grid.Column="0"
+                   Content="Default _Snooze: "
+                   VerticalAlignment="Center"
+                   Target="{Binding ElementName=SnoozeBox}"/>
+            <ComboBox Name="SnoozeBox" 
+                      Grid.Row="2"
+                      Grid.Column="1"
+                      ItemsSource="{Binding SnoozeItems}"
+                      SelectionChanged="SnoozeIndexChanged"
+                      VerticalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource Snooze}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <xctk:TimeSpanUpDown Name="CustomTimeSpan"
+                                 Grid.Row="2"
+                                 Grid.Column="1"
+                                 VerticalAlignment="Center"
+                                 Visibility="Hidden"/>
+
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Content="_URI: "
+                   VerticalAlignment="Center"
+                   Target="{Binding ElementName=UriBox}"/>
             <TextBox Name="UriBox" 
-                     Grid.Row="2"
+                     Grid.Row="3"
                      Grid.Column="1"
-                     TextChanged="ValidateUrlText"
+                     TextChanged="ValidateTextInput"
                      VerticalAlignment="Center" />
         </Grid>
 
@@ -73,6 +104,454 @@
         </StackPanel>
     </StackPanel>
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
