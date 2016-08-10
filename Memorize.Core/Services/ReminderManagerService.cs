@@ -10,24 +10,22 @@ namespace Memorize.Core.Services
 
         public ObservableCollection<Reminder> Reminders { get; } = new ObservableCollection<Reminder>();
 
-        public Reminder CreateReminder(string title, string description, IAlarm alarm, bool addToReminders = true)
+        public void AddReminder(Reminder reminder)
         {
-            var reminder = new Reminder {
-                Id = DefaultSettings.ReminderId++,
-                Title = title,
-                Description = description,
-                AlarmInfo = alarm,
-                DefaultSnooze = TimeSpan.FromMinutes(5),
-                TriggerUri = null
-            };
-            if(addToReminders)
-                this.Reminders.Add(reminder);
-            return reminder;
+            if (reminder.Id == -1)
+                reminder.Id = DefaultSettings.ReminderId++;
+            this.Reminders.Add(reminder);
         }
-
+        
         public void AddExampleReminder()
         {
-            this.CreateReminder("Test-Title", "Test-Desc", new TimepointAlarm(DateTime.Now.AddHours(1)));
+            this.AddReminder(new Reminder {
+                Title = "Test-Title",
+                Description = "Test-Desc",
+                AlarmInfo = new TimepointAlarm(DateTime.Now.AddHours(1)),
+                DefaultSnooze = TimeSpan.FromMinutes(5),
+                TriggerUri = new Uri("http://google.de")
+            });
         }
     }
 }

@@ -44,7 +44,7 @@
 
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Command="{x:Static wpf:AppCommands.CreateReminderCommand}" Content="Create Reminder"/>
+                <Button Command="{x:Static wpf:AppCommands.CreateReminderCommand}" Content="Create new Reminder"/>
             </ToolBar>
         </ToolBarTray>
 

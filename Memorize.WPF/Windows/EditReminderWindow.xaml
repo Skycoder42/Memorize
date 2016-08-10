@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Memorize.WPF.Windows"
+        xmlns:converters="clr-namespace:Memorize.WPF.Converters"
         mc:Ignorable="d"
         Width="300"
         WindowStartupLocation="CenterOwner"
@@ -14,6 +15,7 @@
     <StackPanel>
         <Grid Margin="6">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -41,6 +43,17 @@
                  Grid.Row="1"
                  Grid.Column="1"
                  VerticalAlignment="Center"/>
+
+            <Label Grid.Row="2"
+               Grid.Column="0"
+               Content="_URI: "
+               VerticalAlignment="Center"
+               Target="{Binding ElementName=UriBox}"/>
+            <TextBox Name="UriBox" 
+                     Grid.Row="2"
+                     Grid.Column="1"
+                     TextChanged="ValidateUrlText"
+                     VerticalAlignment="Center" />
         </Grid>
 
         <Separator />
@@ -49,6 +62,7 @@
                     HorizontalAlignment="Right"
                     Margin="6">
             <Button Content="Ok"
+                    Name="OkButton"
                     Width="75"
                     Margin="0,0,5,0"
                     IsDefault="True"
@@ -59,6 +73,54 @@
         </StackPanel>
     </StackPanel>
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
