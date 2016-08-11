@@ -43,7 +43,7 @@ namespace Memorize.Core.Models
                 case SpanScope.Weeks:
                     resTime = resTime.AddDays(this.Span*7L);
                     if(this.DaysOffset.HasValue)
-                        resTime = resTime.AddDays((int)this.DaysOffset - DayOfWeekNum(resTime.DayOfWeek));
+                        resTime = resTime.AddDays((int)this.DaysOffset - DayOfWeekToNum(resTime.DayOfWeek));
                     break;
                 case SpanScope.Months:
                     resTime = new DateTime(resTime.Year, resTime.Month, 1);
@@ -71,12 +71,56 @@ namespace Memorize.Core.Models
             }
         }
 
-        public static int DayOfWeekNum(DayOfWeek dayOfWeek)
+        public override string ToString()
+        {
+            string res;
+            switch (this.Scope) {
+            case SpanScope.Days:
+                res = $"In {this.Span} Days";
+                break;
+            case SpanScope.Weeks:
+                res = $"In {this.Span} Weeks";
+                if (this.DaysOffset.HasValue)
+                    res += $", on {NumToDayOfWeek((int) this.DaysOffset.Value)}";
+                break;
+            case SpanScope.Months:
+                res = $"In {this.Span} Months";
+                if (this.DaysOffset.HasValue)
+                    res += $", on the {this.DaysOffset}.";
+                break;
+            case SpanScope.Years:
+                res = $"In {this.Span} Months";
+                if (this.DaysOffset.HasValue)
+                    res += $", on the {this.DaysOffset}.";
+                break;
+            default:
+                return "<INVALID>";
+            }
+
+            if (this.DayTime.HasValue)
+                res += $", at {this.DayTime}";
+            if (this.Repeating)
+                res += "(repeated)";
+
+            return res;
+        }
+
+        public static int DayOfWeekToNum(DayOfWeek dayOfWeek)
         {
             if (dayOfWeek == DayOfWeek.Sunday)
                 return 6;
             else
                 return (int)dayOfWeek - 1;
+        }
+
+        public static DayOfWeek NumToDayOfWeek(int num)
+        {
+            if (num >= 0 && num < 6)
+                return (DayOfWeek) (num + 1);
+            else if (num == 6)
+                return DayOfWeek.Sunday;
+            else
+                throw new ArgumentException($"{num} is not a valid value for a DayOfWeek", nameof(num));
         }
 
         private static void ValidateData(SpanScope scope, int span, uint? daysOffset, TimeSpan? dayTime)

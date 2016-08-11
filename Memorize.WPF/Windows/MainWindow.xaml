@@ -10,7 +10,8 @@
         Title="Memorize — Active Reminders" 
         Height="500"
         Width="750"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="CanResizeWithGrip">
     
     <Window.Resources>
         <converters:SnoozeConverter x:Key="Snooze" />
