@@ -13,14 +13,18 @@ namespace Memorize.Core.Models
         public bool Repeating { get; }
         public TimeSpan TimeSpan { get; }
 
-        public DateTime CalcNextTrigger(DateTime currentTime)
+        public DateTime? CalcNextTrigger(DateTime lastTriggerTime, int triggerCount)
         {
-            return currentTime.Add(this.TimeSpan);
+            if (!this.Repeating && triggerCount > 0)
+                return null;
+            else
+                return lastTriggerTime.Add(this.TimeSpan);
         }
 
         public override string ToString()
         {
-            return this.TimeSpan.ToString();
+            return this.TimeSpan +
+                   (this.Repeating ? "(repeated)" : "(once)");
         }
     }
 }

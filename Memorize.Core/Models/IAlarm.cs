@@ -4,6 +4,6 @@ namespace Memorize.Core.Models
 {
     public interface IAlarm
     {
-        DateTime CalcNextTrigger(DateTime currentTime);
+        DateTime? CalcNextTrigger(DateTime lastTriggerTime, int triggerCount);
     }
 }

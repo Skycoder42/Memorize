@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Helpers\ToStringExtensions.cs" />
     <Compile Include="Models\IAlarm.cs" />
+    <Compile Include="Models\TimeScopeAlarm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Reminder.cs" />
     <Compile Include="Services\ISettingsService.cs" />

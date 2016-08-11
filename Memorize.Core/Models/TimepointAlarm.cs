@@ -11,11 +11,11 @@ namespace Memorize.Core.Models
 
         public DateTime TimePoint { get; }
 
-        public DateTime CalcNextTrigger(DateTime currentTime)
+        public DateTime? CalcNextTrigger(DateTime lastTriggerTime, int triggerCount)
         {
-            return this.TimePoint > currentTime ?
-                this.TimePoint :
-                default(DateTime);
+            return this.TimePoint > lastTriggerTime ?
+                (DateTime?)this.TimePoint :
+                null;
         }
 
         public override string ToString()

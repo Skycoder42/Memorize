@@ -21,6 +21,11 @@ namespace Memorize.WPF.Windows
                 .Cast<TimeSpan?>();
 
             InitializeComponent();
+            this.CustomTimeSpan.Minimum = TimeSpan.FromSeconds(1);
+
+            this.TimePointPicker.Value = DateTime.Now;
+            this.TimeSpanPicker.Value = TimeSpan.FromMinutes(15);
+
             this.SnoozeBox.SelectedIndex = this._defaultIndex;
             this.ValidateTextInput();
         }
@@ -35,14 +40,15 @@ namespace Memorize.WPF.Windows
                 Uri uri;
                 var uriOk = Uri.TryCreate(createDialog.UriBox.Text, UriKind.Absolute, out uri);
                 var snoozeSelectTime = (TimeSpan)createDialog.SnoozeBox.SelectedItem;
-
+                
                 var res = new Reminder {
                     Title = createDialog.TitleBox.Text,
                     Description = createDialog.DescriptionBox.Text,
                     TriggerUri = uriOk ? uri : null,
                     DefaultSnooze = snoozeSelectTime == TimeSpan.MaxValue ? 
                         createDialog.CustomTimeSpan?.Value ?? TimeSpan.MaxValue :
-                        snoozeSelectTime
+                        snoozeSelectTime,
+                    AlarmInfo = createDialog.CreateAlarm()
                 };
                 CoreApp.Service<ReminderManagerService>().AddReminder(res);
                 return res;
@@ -51,6 +57,25 @@ namespace Memorize.WPF.Windows
         }
 
         public IEnumerable<TimeSpan?> SnoozeItems { get; }
+
+        private IAlarm CreateAlarm()
+        {
+            IAlarm alarm = null;
+            switch (this.AlarmTab.SelectedIndex) {
+            case 0:
+                if (this.TimePointPicker.Value.HasValue)
+                    alarm = new TimepointAlarm(this.TimePointPicker.Value.Value);
+                break;
+            case 1:
+                if (this.TimeSpanPicker.Value.HasValue)
+                    alarm = new TimeSpanAlarm(this.TimeSpanPicker.Value.Value, this.TimeSpanRepeatBox?.IsChecked ?? false);
+                break;
+            default:
+                break;
+            }
+
+            return alarm;
+        }
 
         private void SnoozeIndexChanged(object sender, SelectionChangedEventArgs e)
         {
