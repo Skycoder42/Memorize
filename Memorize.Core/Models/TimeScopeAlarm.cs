@@ -6,7 +6,7 @@ namespace Memorize.Core.Models
     {
         public enum SpanScope
         {
-            Days,
+            Days = 0,
             Weeks,
             Months,
             Years

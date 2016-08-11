@@ -127,7 +127,8 @@
                         </Grid.RowDefinitions>
 
                         <ComboBox Grid.ColumnSpan="2"
-                                  SelectedIndex="0">
+                                  Name="ScopeComboBox"
+                                  SelectionChanged="ScopeBoxChanged">
                             <ComboBoxItem>Days</ComboBoxItem>
                             <ComboBoxItem>Weeks</ComboBoxItem>
                             <ComboBoxItem>Months</ComboBoxItem>
@@ -136,7 +137,8 @@
 
                         <Label Grid.Row="1"
                                Grid.Column="0"
-                               Content="Sp_an: "
+                               Name="SpanLabel"
+                               Content="&lt;span&gt;: "
                                VerticalAlignment="Center"
                                Target="{Binding ElementName=SpanSpinBox}"/>
                         <xctk:IntegerUpDown Grid.Row="1"
@@ -146,6 +148,7 @@
 
                         <Label Grid.Row="2"
                                Grid.Column="0"
+                               Name="DaysLabel"
                                Content="_Days: "
                                VerticalAlignment="Center"
                                Target="{Binding ElementName=DaysSpinBox}"/>

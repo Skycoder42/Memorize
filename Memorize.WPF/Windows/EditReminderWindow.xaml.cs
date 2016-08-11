@@ -86,6 +86,17 @@ namespace Memorize.WPF.Windows
             }
         }
 
+        private void ScopeBoxChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (this.ScopeComboBox.SelectedIndex) {
+            case 0:
+                this.SpanLabel.Content = "_Days: ";
+                this.DaysLabel.Visibility = Visibility.Collapsed;
+                this.DaysSpinBox.Visibility = Visibility.Collapsed;
+                break;
+            }
+        }
+
         private void ValidateTextInput(object sender = null, TextChangedEventArgs e = null)
         {
             Uri uri;
