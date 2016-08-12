@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Memorize.WPF.Windows"
         xmlns:converters="clr-namespace:Memorize.WPF.Converters"
         xmlns:wpf="clr-namespace:Memorize.WPF"
+        xmlns:helpers="clr-namespace:Memorize.WPF.Helpers"
         mc:Ignorable="d"
         Title="Active Reminders — Memorize" 
         Height="500"
@@ -52,14 +53,30 @@
         </ToolBarTray>
 
         <ListView Name="ListView"
-                  MouseDoubleClick="ReminderDoubleClicked">
+                  MouseDoubleClick="ReminderDoubleClicked"
+                  IsSynchronizedWithCurrentItem="True"
+                  helpers:GridViewSort.AutoSort="True"
+                  helpers:GridViewSort.ShowSortGlyph="True">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Title" Width="Auto" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Description" Width="Auto" DisplayMemberBinding="{Binding Description}"/>
-                    <GridViewColumn Header="Alarm Time" Width="Auto" DisplayMemberBinding="{Binding AlarmInfo, Converter={StaticResource Alarm}}"/>
-                    <GridViewColumn Header="Default Snooze" Width="Auto" DisplayMemberBinding="{Binding DefaultSnooze, Converter={StaticResource Snooze}}"/>
-                    <GridViewColumn Header="URI" Width="Auto" DisplayMemberBinding="{Binding TriggerUri}"/>
+                    <GridViewColumn Header="Title"
+                                    Width="Auto" 
+                                    DisplayMemberBinding="{Binding Title}"
+                                    helpers:GridViewSort.PropertyName="Title"/>
+                    <GridViewColumn Header="Description"
+                                    Width="Auto" 
+                                    DisplayMemberBinding="{Binding Description}"/>
+                    <GridViewColumn Header="Alarm Time"
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding AlarmInfo, Converter={StaticResource Alarm}}"
+                                    helpers:GridViewSort.PropertyName="AlarmInfo"/>
+                    <GridViewColumn Header="Default Snooze"
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding DefaultSnooze, Converter={StaticResource Snooze}}"
+                                    helpers:GridViewSort.PropertyName="DefaultSnooze"/>
+                    <GridViewColumn Header="URI"
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding TriggerUri}"/>
                 </GridView>
             </ListView.View>
         </ListView>

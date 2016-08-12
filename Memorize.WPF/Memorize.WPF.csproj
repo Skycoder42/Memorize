@@ -105,6 +105,7 @@
     <Compile Include="Converters\AlarmConverter.cs" />
     <Compile Include="Converters\BaseConverter.cs" />
     <Compile Include="Converters\SnoozeConverter.cs" />
+    <Compile Include="Helpers\GridViewSort.cs" />
     <Compile Include="Services\WpfSettingsService.cs" />
     <Page Include="Windows\EditReminderWindow.xaml">
       <SubType>Designer</SubType>

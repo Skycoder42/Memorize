@@ -23,6 +23,20 @@ namespace Memorize.Core.Models
                 return lastTriggerTime.Add(this.TimeSpan);
         }
 
+        public int CompareTo(IAlarm other)
+        {
+            return this.CompareAlarms(other);
+        }
+
+        public int CompareTo(object obj)
+        {
+            var other = obj as IAlarm;
+            if (other != null)
+                return this.CompareAlarms(other);
+            else
+                return 1;
+        }
+
         public override string ToString()
         {
             return this.TimeSpan +
