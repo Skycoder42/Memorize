@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 using Memorize.Core;
+using Memorize.Core.Models;
 using Memorize.Core.Services;
 
 namespace Memorize.WPF.Windows
@@ -15,19 +17,36 @@ namespace Memorize.WPF.Windows
             };
         }
 
-        private void QuitCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void QuitApp(object sender, ExecutedRoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        private void CreateNew_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void CreateNewReminder(object sender, ExecutedRoutedEventArgs e)
         {
-            var res = EditReminderWindow.CreateReminder(this);
+            EditReminderWindow.CreateReminder(this);
         }
 
         private void IsItemSelected(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = this.ListView.SelectedIndex != -1;
+        }
+
+        private void EditSelectedReminder(object sender, ExecutedRoutedEventArgs e)
+        {
+            EditReminderWindow.EditReminder(this, (Reminder) this.ListView.SelectedItem);
+        }
+
+        private void ReminderDoubleClicked(object sender, MouseButtonEventArgs e)
+        {
+            var item = ((FrameworkElement) e.OriginalSource).DataContext as Reminder;
+            if (item != null)
+                EditReminderWindow.EditReminder(this, item);
+        }
+
+        private void DeleteReminder(object sender, ExecutedRoutedEventArgs e)
+        {
+            CoreApp.Service<ReminderManagerService>().Reminders.Remove((Reminder)this.ListView.SelectedItem);
         }
     }
 }

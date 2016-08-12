@@ -88,12 +88,12 @@ namespace Memorize.Core.Models
             case SpanScope.Months:
                 res = $"In {this.Span} Months";
                 if (this.DaysOffset.HasValue)
-                    res += $", on the {this.DaysOffset}.";
+                    res += $", on the {this.DaysOffset + 1}. Day";
                 break;
             case SpanScope.Years:
                 res = $"In {this.Span} Months";
                 if (this.DaysOffset.HasValue)
-                    res += $", on the {this.DaysOffset}.";
+                    res += $", on the {this.DaysOffset + 1}. Yearday";
                 break;
             default:
                 return "<INVALID>";

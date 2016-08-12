@@ -18,18 +18,18 @@ namespace Memorize.WPF
                 new KeyGesture(Key.N, ModifierKeys.Control)
             });
 
-        public static readonly RoutedCommand EditReminderCommand = new RoutedUICommand("_Delete Reminder",
+        public static readonly RoutedCommand EditReminderCommand = new RoutedUICommand("_Edit Reminder",
             nameof(EditReminderCommand),
             typeof(AppCommands),
             new InputGestureCollection {
-                new KeyGesture(Key.Delete)
+                new KeyGesture(Key.E, ModifierKeys.Control)
             });
 
-        public static readonly RoutedCommand DeleteReminderCommand = new RoutedUICommand("_Edit Reminder",
+        public static readonly RoutedCommand DeleteReminderCommand = new RoutedUICommand("_Delete Reminder",
             nameof(DeleteReminderCommand),
             typeof(AppCommands),
             new InputGestureCollection {
-                new KeyGesture(Key.E, ModifierKeys.Control)
+                new KeyGesture(Key.Delete)
             });
     }
 }

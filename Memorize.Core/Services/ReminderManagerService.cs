@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Memorize.Core.Helpers;
 using Memorize.Core.Models;
 
 namespace Memorize.Core.Services
 {
     public class ReminderManagerService
     {
-        public ReminderManagerService() { }
-
-        public ObservableCollection<Reminder> Reminders { get; } = new ObservableCollection<Reminder>();
+        public ObservableCollection<Reminder> Reminders { get; } = new TrulyObservableCollection<Reminder>();
 
         public void AddReminder(Reminder reminder)
         {
