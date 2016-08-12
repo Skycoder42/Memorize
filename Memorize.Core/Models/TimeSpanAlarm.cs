@@ -4,6 +4,8 @@ namespace Memorize.Core.Models
 {
     public struct TimeSpanAlarm : IAlarm
     {
+        public const bool CanRepeat = true;
+
         public TimeSpanAlarm(TimeSpan timeSpan, bool repeating)
         {
             this.TimeSpan = timeSpan;
@@ -24,7 +26,7 @@ namespace Memorize.Core.Models
         public override string ToString()
         {
             return this.TimeSpan +
-                   (this.Repeating ? "(repeated)" : "(once)");
+                   (this.Repeating ? " (repeated)" : string.Empty);
         }
     }
 }

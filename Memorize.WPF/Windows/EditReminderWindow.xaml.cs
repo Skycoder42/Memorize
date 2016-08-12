@@ -24,7 +24,12 @@ namespace Memorize.WPF.Windows
             this.CustomTimeSpan.Minimum = TimeSpan.FromSeconds(1);
 
             this.TimePointPicker.Value = DateTime.Now;
+
             this.TimeSpanPicker.Value = TimeSpan.FromMinutes(15);
+            
+            this.ScopeComboBox.SelectedIndex = 0;
+            this.DayTimePicker.TimeInterval = TimeSpan.FromMinutes(15);
+            this.DayTimePicker.Value = DateTime.Now;
 
             this.SnoozeBox.SelectedIndex = this._defaultIndex;
             this.ValidateTextInput();
@@ -68,7 +73,15 @@ namespace Memorize.WPF.Windows
                 break;
             case 1:
                 if (this.TimeSpanPicker.Value.HasValue)
-                    alarm = new TimeSpanAlarm(this.TimeSpanPicker.Value.Value, this.TimeSpanRepeatBox?.IsChecked ?? false);
+                    alarm = new TimeSpanAlarm(this.TimeSpanPicker.Value.Value, 
+                        this.RepeatedBox?.IsChecked ?? false);
+                break;
+            case 2:
+                alarm = new TimeScopeAlarm((TimeScopeAlarm.SpanScope) this.ScopeComboBox.SelectedIndex,
+                    this.SpanSpinBox.Value ?? 0,
+                    (this.DaysLabel.IsChecked ?? false) ? (uint?)this.DaysSpinBox.Value : null,
+                    (this.DayTimeLabel.IsChecked ?? false) ? this.DayTimePicker.Value?.TimeOfDay : null,
+                    this.RepeatedBox?.IsChecked ?? false);
                 break;
             default:
                 break;
@@ -86,15 +99,56 @@ namespace Memorize.WPF.Windows
             }
         }
 
+        private void TabIndexChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (this.AlarmTab.SelectedIndex) {
+            case 0:
+                this.RepeatedLabel.IsEnabled = TimepointAlarm.CanRepeat;
+                this.RepeatedBox.IsEnabled = TimepointAlarm.CanRepeat;
+                break;
+            case 1:
+                this.RepeatedLabel.IsEnabled = TimeSpanAlarm.CanRepeat;
+                this.RepeatedBox.IsEnabled = TimeSpanAlarm.CanRepeat;
+                break;
+            case 2:
+                this.RepeatedLabel.IsEnabled = TimeScopeAlarm.CanRepeat;
+                this.RepeatedBox.IsEnabled = TimeScopeAlarm.CanRepeat;
+                break;
+            default:
+                break;
+            }
+        }
+
         private void ScopeBoxChanged(object sender, SelectionChangedEventArgs e)
         {
             switch (this.ScopeComboBox.SelectedIndex) {
             case 0:
-                this.SpanLabel.Content = "_Days: ";
+                this.SpanLabel.Content = "D_ays: ";
                 this.DaysLabel.Visibility = Visibility.Collapsed;
                 this.DaysSpinBox.Visibility = Visibility.Collapsed;
+                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Days);
+                break;
+            case 1:
+                this.SpanLabel.Content = "_Weeks: ";
+                this.DaysLabel.Visibility = Visibility.Visible;
+                this.DaysSpinBox.Visibility = Visibility.Visible;
+                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Weeks);
+                break;
+            case 2:
+                this.SpanLabel.Content = "_Months: ";
+                this.DaysLabel.Visibility = Visibility.Visible;
+                this.DaysSpinBox.Visibility = Visibility.Visible;
+                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Months);
+                break;
+            case 3:
+                this.SpanLabel.Content = "_Years: ";
+                this.DaysLabel.Visibility = Visibility.Visible;
+                this.DaysSpinBox.Visibility = Visibility.Visible;
+                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Years);
                 break;
             }
+
+            this.DaysSpinBox.Value = Math.Min(this.DaysSpinBox.Value ?? 0, this.DaysSpinBox.Maximum ?? 0);
         }
 
         private void ValidateTextInput(object sender = null, TextChangedEventArgs e = null)

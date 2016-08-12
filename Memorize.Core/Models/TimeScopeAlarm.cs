@@ -4,6 +4,8 @@ namespace Memorize.Core.Models
 {
     public struct TimeScopeAlarm : IAlarm
     {
+        public const bool CanRepeat = true;
+
         public enum SpanScope
         {
             Days = 0,
@@ -100,7 +102,7 @@ namespace Memorize.Core.Models
             if (this.DayTime.HasValue)
                 res += $", at {this.DayTime}";
             if (this.Repeating)
-                res += "(repeated)";
+                res += " (repeated)";
 
             return res;
         }
@@ -123,6 +125,22 @@ namespace Memorize.Core.Models
                 throw new ArgumentException($"{num} is not a valid value for a DayOfWeek", nameof(num));
         }
 
+        public static int MaxDays(SpanScope scope)
+        {
+            switch (scope) {
+            case SpanScope.Days:
+                return 0;
+            case SpanScope.Weeks:
+                return 6;
+            case SpanScope.Months:
+                return 30;
+            case SpanScope.Years:
+                return 365;
+            default:
+                return -1;
+            }
+        }
+
         private static void ValidateData(SpanScope scope, int span, uint? daysOffset, TimeSpan? dayTime)
         {
             if(span <= 0)
@@ -130,19 +148,19 @@ namespace Memorize.Core.Models
 
             switch (scope) {
             case SpanScope.Days:
-                if (daysOffset.HasValue && daysOffset != 0)
+                if (daysOffset.HasValue && daysOffset > MaxDays(scope))
                     throw new ArgumentException($"{scope}: Cannot have a day offset", nameof(daysOffset));
                 break;
             case SpanScope.Weeks:
-                if (daysOffset.HasValue && daysOffset >= 7)
+                if (daysOffset.HasValue && daysOffset > MaxDays(scope))
                     throw new ArgumentException($"{scope}: Day offset can be at most 6 days", nameof(daysOffset));
                 break;
             case SpanScope.Months:
-                if (daysOffset.HasValue && daysOffset >= 31)
+                if (daysOffset.HasValue && daysOffset > MaxDays(scope))
                     throw new ArgumentException($"{scope}: Day offset can be at most 30 days", nameof(daysOffset));
                 break;
             case SpanScope.Years:
-                if (daysOffset.HasValue && daysOffset >= 366)
+                if (daysOffset.HasValue && daysOffset > MaxDays(scope))
                     throw new ArgumentException($"{scope}: Day offset can be at most 365 days", nameof(daysOffset));
                 break;
             default:

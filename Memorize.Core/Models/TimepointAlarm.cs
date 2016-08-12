@@ -4,6 +4,8 @@ namespace Memorize.Core.Models
 {
     public struct TimepointAlarm : IAlarm
     {
+        public const bool CanRepeat = false;
+
         public TimepointAlarm(DateTime timePoint)
         {
             this.TimePoint = timePoint;
