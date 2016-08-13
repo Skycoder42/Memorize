@@ -1,10 +1,12 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Views;
 using Memorize.Core.Models;
 using Newtonsoft.Json;
+using Fragment = Android.Support.V4.App.Fragment;
 
 namespace Memorize.Droid.Activities
 {
@@ -27,6 +29,14 @@ namespace Memorize.Droid.Activities
 
             this.SupportActionBar.SetHomeButtonEnabled(true);
             this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+            var tabHost = this.FindViewById<FragmentTabHost>(Android.Resource.Id.TabHost);
+            tabHost.Setup(this, this.SupportFragmentManager, Resource.Id.realtabcontent);
+
+            tabHost.AddTab(tabHost.NewTabSpec("tab1")
+                .SetIndicator("Tab 1"),
+                Java.Lang.Class.FromType(typeof(Fragment)),
+                null);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

@@ -105,6 +105,9 @@
     <AndroidResource Include="Resources\layout\EditReminder.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\EditReminder_Timepoint_Tab.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Memorize.Core\Memorize.Core.csproj">
