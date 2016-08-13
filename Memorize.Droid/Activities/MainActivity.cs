@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using Memorize.Core;
@@ -13,12 +14,12 @@ namespace Memorize.Droid.Activities
         MainLauncher = true,
         Theme = "@style/Memorize.Droid.Theme",
         Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.Main);
+            this.SetContentView(Resource.Layout.Main);
 
             var listView = this.FindViewById<ListView>(Resource.Id.reminderListView);
             listView.Adapter = new ReminderArrayAdapter(this, CoreApp.Service<ReminderManagerService>().Reminders);
