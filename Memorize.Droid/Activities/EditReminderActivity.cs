@@ -1,6 +1,8 @@
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
+using Android.Views;
 using Memorize.Core.Models;
 using Newtonsoft.Json;
 
@@ -22,6 +24,22 @@ namespace Memorize.Droid.Activities
             var reminderExtra = this.Intent?.Extras?.GetString(EditReminderIntent, null);
             if (reminderExtra != null)
                 this._editReminder = JsonConvert.DeserializeObject<Reminder>(reminderExtra);
+
+            this.SupportActionBar.SetHomeButtonEnabled(true);
+            this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId) {
+            case Android.Resource.Id.Home:
+                var intent = new Intent(this, typeof(MainActivity));
+                intent.AddFlags(ActivityFlags.ClearTop);
+                this.StartActivity(intent);
+                return true;
+            default:
+                return base.OnOptionsItemSelected(item);
+            }
         }
     }
 }
