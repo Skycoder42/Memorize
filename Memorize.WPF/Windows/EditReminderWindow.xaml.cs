@@ -115,7 +115,7 @@ namespace Memorize.WPF.Windows
             case 2:
                 alarm = new TimeScopeAlarm((TimeScopeAlarm.SpanScope) this.ScopeComboBox.SelectedIndex,
                     this.SpanSpinBox.Value ?? 0,
-                    (this.DaysLabel.IsChecked ?? false) ? (uint?)this.DaysSpinBox.Value - 1 : null,
+                    (this.DaysLabel.IsChecked ?? false) ? (uint?)this.DaysSpinBox.Value : null,
                     (this.DayTimeLabel.IsChecked ?? false) ? this.DayTimePicker.Value?.TimeOfDay : null,
                     this.RepeatedBox?.IsChecked ?? false);
                 break;
@@ -142,7 +142,7 @@ namespace Memorize.WPF.Windows
                 this.ScopeComboBox.SelectedIndex = (int) tAl.Scope;
                 this.SpanSpinBox.Value = tAl.Span;
                 this.DaysLabel.IsChecked = tAl.DaysOffset.HasValue;
-                this.DaysSpinBox.Value = ((int?)tAl.DaysOffset ?? 0) + 1;
+                this.DaysSpinBox.Value = ((int?)tAl.DaysOffset ?? 1);
                 this.DayTimeLabel.IsChecked = tAl.DayTime.HasValue;
                 var tTime = new DateTime(2000, 1, 1);
                 tTime = tTime + (tAl.DayTime ?? TimeSpan.Zero);
@@ -187,25 +187,24 @@ namespace Memorize.WPF.Windows
                 this.SpanLabel.Content = "D_ays: ";
                 this.DaysLabel.Visibility = Visibility.Collapsed;
                 this.DaysSpinBox.Visibility = Visibility.Collapsed;
-                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Days) + 1;
                 break;
             case 1:
                 this.SpanLabel.Content = "_Weeks: ";
                 this.DaysLabel.Visibility = Visibility.Visible;
                 this.DaysSpinBox.Visibility = Visibility.Visible;
-                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Weeks) + 1;
+                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Weeks);
                 break;
             case 2:
                 this.SpanLabel.Content = "_Months: ";
                 this.DaysLabel.Visibility = Visibility.Visible;
                 this.DaysSpinBox.Visibility = Visibility.Visible;
-                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Months) + 1;
+                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Months);
                 break;
             case 3:
                 this.SpanLabel.Content = "_Years: ";
                 this.DaysLabel.Visibility = Visibility.Visible;
                 this.DaysSpinBox.Visibility = Visibility.Visible;
-                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Years) + 1;
+                this.DaysSpinBox.Maximum = TimeScopeAlarm.MaxDays(TimeScopeAlarm.SpanScope.Years);
                 break;
             }
 

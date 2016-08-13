@@ -16,7 +16,7 @@ namespace Memorize.Core.Models
 
         public TimeScopeAlarm(SpanScope scope, int span, uint? daysOffset, TimeSpan? dayTime, bool reapeating)
         {
-            ValidateData(scope, span, daysOffset, dayTime);
+            ValidateData(scope, span, ref daysOffset, dayTime);
 
             this.Scope = scope;
             this.Span = span;
@@ -36,7 +36,7 @@ namespace Memorize.Core.Models
             if (!this.Repeating && triggerCount > 0)
                 return null;
             else {
-                DateTime resTime = lastTriggerTime;
+                var resTime = lastTriggerTime;
 
                 switch (this.Scope) {
                 case SpanScope.Days:
@@ -52,15 +52,15 @@ namespace Memorize.Core.Models
                     resTime = resTime.AddMonths(this.Span);
                     resTime = resTime.AddDays(Math.Min(this.DaysOffset.HasValue ?
                             (int) this.DaysOffset.Value :
-                            lastTriggerTime.Day - 1,
-                        DateTime.DaysInMonth(resTime.Year, resTime.Month) - 1));
+                            lastTriggerTime.Day,
+                        DateTime.DaysInMonth(resTime.Year, resTime.Month)) - 1);
                     break;
                 case SpanScope.Years:
                     resTime = new DateTime(resTime.Year, 1, 1);
                     resTime = resTime.AddYears(this.Span);
                     resTime = resTime.AddDays(Math.Min(this.DaysOffset.HasValue ?
                             (int)this.DaysOffset.Value :
-                            lastTriggerTime.DayOfYear - 1,
+                            lastTriggerTime.DayOfYear,
                         new DateTime(resTime.Year, 12, 31).DayOfYear) - 1);
                     break;
                 }
@@ -102,12 +102,12 @@ namespace Memorize.Core.Models
             case SpanScope.Months:
                 res = $"In {this.Span} Months";
                 if (this.DaysOffset.HasValue)
-                    res += $", on the {this.DaysOffset + 1}. Day";
+                    res += $", on the {this.DaysOffset}. Day";
                 break;
             case SpanScope.Years:
                 res = $"In {this.Span} Months";
                 if (this.DaysOffset.HasValue)
-                    res += $", on the {this.DaysOffset + 1}. Yearday";
+                    res += $", on the {this.DaysOffset}. Yearday";
                 break;
             default:
                 return "<INVALID>";
@@ -124,16 +124,16 @@ namespace Memorize.Core.Models
         public static int DayOfWeekToNum(DayOfWeek dayOfWeek)
         {
             if (dayOfWeek == DayOfWeek.Sunday)
-                return 6;
+                return 7;
             else
-                return (int)dayOfWeek - 1;
+                return (int)dayOfWeek;
         }
 
         public static DayOfWeek NumToDayOfWeek(int num)
         {
-            if (num >= 0 && num < 6)
-                return (DayOfWeek) (num + 1);
-            else if (num == 6)
+            if (num > 0 && num < 7)
+                return (DayOfWeek) num;
+            else if (num == 7)
                 return DayOfWeek.Sunday;
             else
                 throw new ArgumentException($"{num} is not a valid value for a DayOfWeek", nameof(num));
@@ -145,37 +145,40 @@ namespace Memorize.Core.Models
             case SpanScope.Days:
                 return 0;
             case SpanScope.Weeks:
-                return 6;
+                return 7;
             case SpanScope.Months:
-                return 30;
+                return 31;
             case SpanScope.Years:
-                return 365;
+                return 366;
             default:
                 return -1;
             }
         }
 
-        private static void ValidateData(SpanScope scope, int span, uint? daysOffset, TimeSpan? dayTime)
+        private static void ValidateData(SpanScope scope, int span, ref uint? daysOffset, TimeSpan? dayTime)
         {
             if(span <= 0)
                 throw new ArgumentException("The span must be a positive value greater then 0", nameof(span));
 
+            if (daysOffset?.Equals(0) ?? false)
+                daysOffset = null;
+
             switch (scope) {
             case SpanScope.Days:
-                if (daysOffset.HasValue && daysOffset > MaxDays(scope))
+                if (daysOffset.HasValue)
                     throw new ArgumentException($"{scope}: Cannot have a day offset", nameof(daysOffset));
                 break;
             case SpanScope.Weeks:
                 if (daysOffset.HasValue && daysOffset > MaxDays(scope))
-                    throw new ArgumentException($"{scope}: Day offset can be at most 6 days", nameof(daysOffset));
+                    throw new ArgumentException($"{scope}: Day offset can be at most 7 days", nameof(daysOffset));
                 break;
             case SpanScope.Months:
                 if (daysOffset.HasValue && daysOffset > MaxDays(scope))
-                    throw new ArgumentException($"{scope}: Day offset can be at most 30 days", nameof(daysOffset));
+                    throw new ArgumentException($"{scope}: Day offset can be at most 31 days", nameof(daysOffset));
                 break;
             case SpanScope.Years:
                 if (daysOffset.HasValue && daysOffset > MaxDays(scope))
-                    throw new ArgumentException($"{scope}: Day offset can be at most 365 days", nameof(daysOffset));
+                    throw new ArgumentException($"{scope}: Day offset can be at most 366 days", nameof(daysOffset));
                 break;
             default:
                 throw new ArgumentException("Unknown Scope!!!", nameof(scope));
