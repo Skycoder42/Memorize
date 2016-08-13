@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Memorize.Core.Models;
 using Memorize.Core.Services;
+using Newtonsoft.Json;
 
 namespace Memorize.Core
 {

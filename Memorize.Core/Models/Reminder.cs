@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 
 namespace Memorize.Core.Models
 {
@@ -31,6 +32,7 @@ namespace Memorize.Core.Models
             set { _description = value; this.OnPropertyChanged(); }
         }
 
+        [JsonConverter(typeof(AlarmSerializer))]
         public IAlarm AlarmInfo
         {
             get { return _alarmInfo; }

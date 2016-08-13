@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Memorize.Core.Models
 {
@@ -6,6 +7,7 @@ namespace Memorize.Core.Models
     {
         public const bool CanRepeat = false;
 
+        [JsonConstructor]
         public TimepointAlarm(DateTime timePoint)
         {
             this.TimePoint = timePoint;

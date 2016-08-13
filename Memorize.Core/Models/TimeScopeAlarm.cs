@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Memorize.Core.Models
 {
@@ -14,6 +15,7 @@ namespace Memorize.Core.Models
             Years
         }
 
+        [JsonConstructor]
         public TimeScopeAlarm(SpanScope scope, int span, uint? daysOffset, TimeSpan? dayTime, bool reapeating)
         {
             ValidateData(scope, span, ref daysOffset, dayTime);
