@@ -1,22 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Android.Content;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Memorize.Core;
 using Memorize.Core.Models;
 
-namespace Memorize.Droid
+namespace Memorize.Droid.Helpers
 {
-    public class ReminderArrayAdapter : ArrayAdapter<Reminder>
+    internal class ReminderArrayAdapter : ObservableArrayAdapter<Reminder>
     {
         public ReminderArrayAdapter(IntPtr handle, JniHandleOwnership transfer) :
             base(handle, transfer)
         {}
 
-        public ReminderArrayAdapter(Context context, IList<Reminder> objects) :
-            base(context, -1, objects)
+        public ReminderArrayAdapter(Context context, ObservableCollection<Reminder> objects) :
+            base(context, objects)
         {}
 
         public override View GetView(int position, View convertView, ViewGroup parent)

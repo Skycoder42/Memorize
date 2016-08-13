@@ -4,7 +4,7 @@ using Memorize.Core.Helpers;
 
 namespace Memorize.WPF.Converters
 {
-    public class SnoozeConverter : BaseConverter<TimeSpan, string>, IValueConverter
+    internal class SnoozeConverter : BaseConverter<TimeSpan, string>, IValueConverter
     {
         public override string Convert(TimeSpan value)
         {

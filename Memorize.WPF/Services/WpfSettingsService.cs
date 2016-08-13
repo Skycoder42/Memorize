@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Memorize.WPF.Services
 {
-    public class WpfSettingsService : ISettingsService
+    internal class WpfSettingsService : ISettingsService
     {
         private const string BasePath = @"SOFTWARE\Skycoder42\Memorize";
 
@@ -32,15 +32,9 @@ namespace Memorize.WPF.Services
             return defaultValue;
         }
 
-        public bool Contains(string key)
-        {
-            return this._mainKey?.GetValueNames().Contains(key) ?? false;
-        }
+        public bool Contains(string key) => this._mainKey?.GetValueNames().Contains(key) ?? false;
 
-        public void Remove(string key)
-        {
-            this._mainKey?.DeleteValue(key);
-        }
+        public void Remove(string key) => this._mainKey?.DeleteValue(key);
 
         public void Reset()
         {

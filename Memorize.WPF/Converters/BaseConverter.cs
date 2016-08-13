@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace Memorize.WPF.Converters
 {
-    public abstract class BaseConverter<TSource, TTarget> : IValueConverter
+    internal abstract class BaseConverter<TSource, TTarget> : IValueConverter
     {
         public abstract TTarget Convert(TSource value);
         public virtual TSource ConvertBack(TTarget value)

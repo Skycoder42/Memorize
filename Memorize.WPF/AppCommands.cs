@@ -2,7 +2,7 @@
 
 namespace Memorize.WPF
 {
-    public static class AppCommands
+    internal static class AppCommands
     {
         public static readonly RoutedCommand QuitCommand = new RoutedUICommand("_Quit",
             nameof(QuitCommand),

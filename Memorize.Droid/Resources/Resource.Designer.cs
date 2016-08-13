@@ -67,7 +67,10 @@ namespace Memorize.Droid
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int ic_add_alert_black_24dp = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int Icon = 2130837505;
 			
 			static Drawable()
 			{
@@ -82,8 +85,11 @@ namespace Memorize.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070000
-			public const int reminderListView = 2131165184;
+			// aapt resource value: 0x7f080001
+			public const int main_menu_createReminder = 2131230721;
+			
+			// aapt resource value: 0x7f080000
+			public const int reminderListView = 2131230720;
 			
 			static Id()
 			{
@@ -111,11 +117,39 @@ namespace Memorize.Droid
 			}
 		}
 		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f070000
+			public const int MainMenu = 2131165184;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
 			// aapt resource value: 0x7f050000
 			public const int ApplicationName = 2131034112;
+			
+			// aapt resource value: 0x7f050003
+			public const int editReminder_activity_title_create = 2131034115;
+			
+			// aapt resource value: 0x7f050004
+			public const int editReminder_activity_title_edit = 2131034116;
+			
+			// aapt resource value: 0x7f050001
+			public const int main_activity_title = 2131034113;
+			
+			// aapt resource value: 0x7f050002
+			public const int main_menu_createReminder = 2131034114;
 			
 			static String()
 			{

@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace Memorize.WPF.Helpers
 {
-    public class GridViewSort
+    internal class GridViewSort
     {
         #region Public attached properties
  

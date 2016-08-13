@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ApplicationName">Memorize</string>
+  <string name="ApplicationName">Memorize</string>
+  
+  <!-- Main strings -->
+  <string name="main_activity_title">@string/ApplicationName</string>
+  <string name="main_menu_createReminder">Create Reminder</string>
+  
+  <!-- EditReminder strings -->
+  <string name="editReminder_activity_title_create">Create Reminder</string>
+  <string name="editReminder_activity_title_edit">Edit Reminder</string>
 </resources>
