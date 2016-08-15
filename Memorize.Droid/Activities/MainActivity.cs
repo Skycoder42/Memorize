@@ -1,8 +1,8 @@
-﻿using Android.App;
-using Android.Content;
+﻿using System;
+using Android.App;
 using Android.OS;
+using Android.Support.Design.Widget;
 using Android.Support.V7.App;
-using Android.Views;
 using Android.Widget;
 using Memorize.Core;
 using Memorize.Core.Services;
@@ -23,23 +23,13 @@ namespace Memorize.Droid.Activities
 
             var listView = this.FindViewById<ListView>(Resource.Id.reminderListView);
             listView.Adapter = new ReminderArrayAdapter(this, CoreApp.Service<ReminderManagerService>().Reminders);
+
+            this.FindViewById<FloatingActionButton>(Resource.Id.applyFab).Click += CreateReminderClicked;
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
+        private void CreateReminderClicked(object sender, EventArgs eventArgs)
         {
-            this.MenuInflater.Inflate(Resource.Menu.MainMenu, menu);
-            return true;
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId) {
-            case Resource.Id.main_menu_createReminder:
-                this.StartActivity(typeof(EditReminderActivity));
-                return true;
-            default:
-                return base.OnOptionsItemSelected(item);
-            }
+            this.StartActivity(typeof(EditReminderActivity));
         }
     }
 }

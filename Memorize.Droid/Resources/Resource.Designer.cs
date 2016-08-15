@@ -1840,13 +1840,19 @@ namespace Memorize.Droid
 			public const int ic_check_white_24dp = 2130837582;
 			
 			// aapt resource value: 0x7f02004f
-			public const int ic_navigate_next_white_24dp = 2130837583;
+			public const int ic_do_not_disturb_white_24dp = 2130837583;
 			
 			// aapt resource value: 0x7f020050
-			public const int Icon = 2130837584;
+			public const int ic_navigate_next_white_24dp = 2130837584;
 			
 			// aapt resource value: 0x7f020051
-			public const int notification_template_icon_bg = 2130837585;
+			public const int ic_save_white_24dp = 2130837585;
+			
+			// aapt resource value: 0x7f020052
+			public const int Icon = 2130837586;
+			
+			// aapt resource value: 0x7f020053
+			public const int notification_template_icon_bg = 2130837587;
 			
 			static Drawable()
 			{
@@ -1924,8 +1930,8 @@ namespace Memorize.Droid
 			// aapt resource value: 0x7f06001e
 			public const int always = 2131099678;
 			
-			// aapt resource value: 0x7f060079
-			public const int applyFab = 2131099769;
+			// aapt resource value: 0x7f06007a
+			public const int applyFab = 2131099770;
 			
 			// aapt resource value: 0x7f06001b
 			public const int beginning = 2131099675;
@@ -1998,6 +2004,9 @@ namespace Memorize.Droid
 			
 			// aapt resource value: 0x7f06000e
 			public const int disableHome = 2131099662;
+			
+			// aapt resource value: 0x7f06008b
+			public const int editReminder_menu_saveReminder = 2131099787;
 			
 			// aapt resource value: 0x7f06005c
 			public const int edit_query = 2131099740;
@@ -2074,9 +2083,6 @@ namespace Memorize.Droid
 			// aapt resource value: 0x7f060072
 			public const int mainGrid = 2131099762;
 			
-			// aapt resource value: 0x7f06008b
-			public const int main_menu_createReminder = 2131099787;
-			
 			// aapt resource value: 0x7f060081
 			public const int media_actions = 2131099777;
 			
@@ -2122,8 +2128,8 @@ namespace Memorize.Droid
 			// aapt resource value: 0x7f060078
 			public const int realtabcontent = 2131099768;
 			
-			// aapt resource value: 0x7f06007a
-			public const int reminderListView = 2131099770;
+			// aapt resource value: 0x7f060079
+			public const int reminderListView = 2131099769;
 			
 			// aapt resource value: 0x7f060077
 			public const int repeatedSwitch = 2131099767;
@@ -2501,7 +2507,7 @@ namespace Memorize.Droid
 		{
 			
 			// aapt resource value: 0x7f0c0000
-			public const int MainMenu = 2131492864;
+			public const int EditReminderMenu = 2131492864;
 			
 			static Menu()
 			{
@@ -2591,6 +2597,9 @@ namespace Memorize.Droid
 			// aapt resource value: 0x7f07001d
 			public const int editReminder_activity_description_label = 2131165213;
 			
+			// aapt resource value: 0x7f070021
+			public const int editReminder_activity_invalidSave = 2131165217;
+			
 			// aapt resource value: 0x7f070020
 			public const int editReminder_activity_repeated_label = 2131165216;
 			
@@ -2606,11 +2615,11 @@ namespace Memorize.Droid
 			// aapt resource value: 0x7f07001f
 			public const int editReminder_activity_uri_label = 2131165215;
 			
+			// aapt resource value: 0x7f070019
+			public const int editReminder_menu_saveReminder = 2131165209;
+			
 			// aapt resource value: 0x7f070018
 			public const int main_activity_title = 2131165208;
-			
-			// aapt resource value: 0x7f070019
-			public const int main_menu_createReminder = 2131165209;
 			
 			// aapt resource value: 0x7f070013
 			public const int status_bar_notification_info_overflow = 2131165203;

@@ -3,8 +3,8 @@
   <string name="ApplicationName">Memorize</string>
   <!-- Main strings -->
   <string name="main_activity_title">@string/ApplicationName</string>
-  <string name="main_menu_createReminder">Create Reminder</string>
   <!-- EditReminder strings -->
+  <string name="editReminder_menu_saveReminder">Save Reminder</string>
   <string name="editReminder_activity_title_create">Create Reminder</string>
   <string name="editReminder_activity_title_edit">Edit Reminder</string>
   <string name="editReminder_activity_title_label">Title:</string>
@@ -12,4 +12,5 @@
   <string name="editReminder_activity_defaultSnooze_label">Default Snooze:</string>
   <string name="editReminder_activity_uri_label">URI:</string>
   <string name="editReminder_activity_repeated_label">Repeated:</string>
+  <string name="editReminder_activity_invalidSave">Invalid Input. Cannot save!</string>
 </resources>

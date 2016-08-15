@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,4 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/reminderListView" />
-</LinearLayout>
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/applyFab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="20dp"
+      android:src="@drawable/ic_add_alert_white_24dp"
+      android:clickable="true"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentEnd="true" />
+</RelativeLayout>

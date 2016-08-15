@@ -25,8 +25,6 @@ namespace Memorize.Droid.Activities
     {
         public const string EditReminderIntent = "com.SkyCoder42.Memorize.REMINDER_EXTRA";
 
-        [InjectView(Resource.Id.applyFab)]
-        private FloatingActionButton _applyFab;
         [InjectView(Resource.Id.titleEdit)]
         private EditText _titleEdit;
         [InjectView(Resource.Id.descriptionEdit)]
@@ -35,6 +33,7 @@ namespace Memorize.Droid.Activities
         private EditText _uriEdit;
 
         private Reminder _editReminder;
+        private bool _allowSave;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -58,25 +57,17 @@ namespace Memorize.Droid.Activities
                 Java.Lang.Class.FromType(typeof(Fragment)),
                 null);
 
-            this._applyFab.Click += ApplyReminder;
-
             //load data
             var reminderExtra = this.Intent?.Extras?.GetString(EditReminderIntent, null);
             if (reminderExtra != null)
                 this._editReminder = JsonConvert.DeserializeObject<Reminder>(reminderExtra);
-
-            this.ValidateInput();
         }
 
-        private void ValidateInput(object sender = null, EventArgs e = null)
+        public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            Uri outUri;
-            if (!string.IsNullOrWhiteSpace(this._titleEdit.Text) &&
-                (string.IsNullOrEmpty(this._uriEdit.Text) ||
-                 Uri.TryCreate(this._uriEdit.Text, UriKind.Absolute, out outUri)))
-                this._applyFab.Show();
-            else
-                this._applyFab.Hide();
+            base.OnCreateOptionsMenu(menu);
+            this.MenuInflater.Inflate(Resource.Menu.EditReminderMenu, menu);
+            return true;
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -87,12 +78,26 @@ namespace Memorize.Droid.Activities
                 intent.AddFlags(ActivityFlags.ClearTop);
                 this.StartActivity(intent);
                 return true;
+            case Resource.Id.editReminder_menu_saveReminder:
+                if (this._allowSave)
+                    this.ApplyReminder();
+                else
+                    Toast.MakeText(this, Resource.String.editReminder_activity_invalidSave, ToastLength.Short).Show();
+                return true;
             default:
                 return base.OnOptionsItemSelected(item);
             }
         }
 
-        private void ApplyReminder(object sender, EventArgs eventArgs)
+        private void ValidateInput(object sender = null, EventArgs e = null)
+        {
+            Uri outUri;
+            this._allowSave = !string.IsNullOrWhiteSpace(this._titleEdit.Text) &&
+                              (string.IsNullOrEmpty(this._uriEdit.Text) ||
+                               Uri.TryCreate(this._uriEdit.Text, UriKind.Absolute, out outUri));
+        }
+
+        private void ApplyReminder()
         {
             var eRem = this._editReminder ?? new Reminder();
 
