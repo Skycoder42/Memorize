@@ -1,12 +1,21 @@
+using System;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V7.App;
+using Android.Text;
+using Android.Util;
 using Android.Views;
+using Android.Widget;
+using Memorize.Core;
 using Memorize.Core.Models;
+using Memorize.Core.Services;
+using Memorize.Droid.Helpers;
 using Newtonsoft.Json;
 using Fragment = Android.Support.V4.App.Fragment;
+#pragma warning disable 649
 
 namespace Memorize.Droid.Activities
 {
@@ -14,7 +23,16 @@ namespace Memorize.Droid.Activities
         Theme = "@style/Memorize.Droid.Theme")]
     public class EditReminderActivity : AppCompatActivity
     {
-        public const string EditReminderIntent = "com.SkyCoder42.Memorize.EDIT_REMINDER_EXTRA";
+        public const string EditReminderIntent = "com.SkyCoder42.Memorize.REMINDER_EXTRA";
+
+        [InjectView(Resource.Id.applyFab)]
+        private FloatingActionButton _applyFab;
+        [InjectView(Resource.Id.titleEdit)]
+        private EditText _titleEdit;
+        [InjectView(Resource.Id.descriptionEdit)]
+        private EditText _descriptionEdit;
+        [InjectView(Resource.Id.uriEdit)]
+        private EditText _uriEdit;
 
         private Reminder _editReminder;
 
@@ -22,13 +40,15 @@ namespace Memorize.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
             this.SetContentView(Resource.Layout.EditReminder);
+            this.SetResult(Result.Canceled);
+            this.AutoInjectViews();
 
-            var reminderExtra = this.Intent?.Extras?.GetString(EditReminderIntent, null);
-            if (reminderExtra != null)
-                this._editReminder = JsonConvert.DeserializeObject<Reminder>(reminderExtra);
-
+            //setup ui
             this.SupportActionBar.SetHomeButtonEnabled(true);
             this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+            this._titleEdit.AfterTextChanged += ValidateInput;
+            this._uriEdit.AfterTextChanged += ValidateInput;
 
             var tabHost = this.FindViewById<FragmentTabHost>(Android.Resource.Id.TabHost);
             tabHost.Setup(this, this.SupportFragmentManager, Resource.Id.realtabcontent);
@@ -37,6 +57,26 @@ namespace Memorize.Droid.Activities
                 .SetIndicator("Tab 1"),
                 Java.Lang.Class.FromType(typeof(Fragment)),
                 null);
+
+            this._applyFab.Click += ApplyReminder;
+
+            //load data
+            var reminderExtra = this.Intent?.Extras?.GetString(EditReminderIntent, null);
+            if (reminderExtra != null)
+                this._editReminder = JsonConvert.DeserializeObject<Reminder>(reminderExtra);
+
+            this.ValidateInput();
+        }
+
+        private void ValidateInput(object sender = null, EventArgs e = null)
+        {
+            Uri outUri;
+            if (!string.IsNullOrWhiteSpace(this._titleEdit.Text) &&
+                (string.IsNullOrEmpty(this._uriEdit.Text) ||
+                 Uri.TryCreate(this._uriEdit.Text, UriKind.Absolute, out outUri)))
+                this._applyFab.Show();
+            else
+                this._applyFab.Hide();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -50,6 +90,22 @@ namespace Memorize.Droid.Activities
             default:
                 return base.OnOptionsItemSelected(item);
             }
+        }
+
+        private void ApplyReminder(object sender, EventArgs eventArgs)
+        {
+            var eRem = this._editReminder ?? new Reminder();
+
+            eRem.Title = this._titleEdit.Text;
+            eRem.Description = this._descriptionEdit.Text;
+            var uri = this._uriEdit.Text;
+            eRem.TriggerUri = string.IsNullOrEmpty(uri) ? null : new Uri(uri);
+
+            if (this._editReminder == null)
+                CoreApp.Service<ReminderManagerService>().AddReminder(eRem);
+            
+            this.SetResult(Result.Ok);
+            this.Finish();
         }
     }
 }

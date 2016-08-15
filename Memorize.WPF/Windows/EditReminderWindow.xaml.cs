@@ -214,9 +214,9 @@ namespace Memorize.WPF.Windows
         private void ValidateTextInput(object sender = null, TextChangedEventArgs e = null)
         {
             Uri uri;
-            this.OkButton.IsEnabled = (this.UriBox.Text.Length == 0 ||
+            this.OkButton.IsEnabled = (string.IsNullOrEmpty(this.UriBox.Text) ||
                                        Uri.TryCreate(this.UriBox.Text, UriKind.Absolute, out uri)) &&
-                                       this.TitleBox.Text.Length > 0;
+                                       !string.IsNullOrWhiteSpace(this.TitleBox.Text);
         }
 
         private void OkClicked(object sender, RoutedEventArgs e)

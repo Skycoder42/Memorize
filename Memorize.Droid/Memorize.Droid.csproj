@@ -84,6 +84,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Helpers\ObservableArrayAdapter.cs" />
     <Compile Include="Helpers\ReminderArrayAdapter.cs" />
+    <Compile Include="Helpers\ViewInjector.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DroidSettingsService.cs" />
