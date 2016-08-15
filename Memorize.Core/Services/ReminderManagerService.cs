@@ -40,7 +40,7 @@ namespace Memorize.Core.Services
         {
             this.AddReminder(new Reminder {
                 Title = "Test-Title",
-                Description = "Test-Desc",
+                Description = "Longer Test-Description Text",
                 AlarmInfo = new TimeScopeAlarm(TimeScopeAlarm.SpanScope.Weeks, 2, 3, TimeSpan.FromHours(5), false),
                 DefaultSnooze = TimeSpan.FromMinutes(5),
                 TriggerUri = new Uri("http://google.de")
